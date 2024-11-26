@@ -7,10 +7,7 @@ pipeline {
         BACKEND_IMAGE = 'vaibhavnitor/backend-image'
         DATABASE_IMAGE = 'vaibhavnitor/database-image'
     }
-  triggers {
-        //git('main')   // Trigger when commits are made to the 'main' branch in the repository
-            githubPush()
-  }
+
     stages {
         stage('Checkout from Git'){
             steps{
@@ -43,13 +40,13 @@ pipeline {
                 }
             }
         }
-		stage("TRIVY"){
-            steps{
-                sh "trivy image ${FRONTEND_IMAGE}:latest "
-				sh "trivy image ${BACKEND_IMAGE}:latest "
-				sh "trivy image ${DATABASE_IMAGE}:latest "
-            }
-        }
+		//stage("TRIVY"){
+          //  steps{
+            //    sh "trivy image ${FRONTEND_IMAGE}:latest "
+			//	sh "trivy image ${BACKEND_IMAGE}:latest "
+			//	sh "trivy image ${DATABASE_IMAGE}:latest "
+            //}
+        //}
         stage('deploy to container'){
             steps{
                 script{
@@ -61,10 +58,10 @@ pipeline {
         stage('Push Images to Docker Hub') {
     steps {
         script {
-		withDockerRegistry(credentialsId: 'docker', toolName: 'docker')
-            //withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+            withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+ 
                 // Push the Docker images
-		{sh 'docker push ${FRONTEND_IMAGE}:latest'
+                sh 'docker push ${FRONTEND_IMAGE}:latest'
                 sh 'docker push ${BACKEND_IMAGE}:latest'
                 sh 'docker push ${DATABASE_IMAGE}:latest'
             }
