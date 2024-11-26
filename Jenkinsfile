@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+	triggers {
+        githubPush() // Trigger the pipeline when a push event occurs
+    }
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker')
         FRONTEND_IMAGE = 'vaibhavnitor/frontend-image'
