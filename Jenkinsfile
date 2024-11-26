@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout from Git'){
             steps{
-                git branch: 'main', url: 'https://github.com/VaibhavchavanDevOps/ThreeTierApplication-Angular-dotnet-SQL.git'
+                git branch: 'main', url: 'https://github.com/C2-84177-Assignments/Angular-dotnet-SQL.git'
         }    }
 
         stage('Build Frontend Docker Image') {
@@ -61,10 +61,10 @@ pipeline {
         stage('Push Images to Docker Hub') {
     steps {
         script {
-            withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
- 
+		withDockerRegistry(credentialsId: 'docker', toolName: 'docker')
+            //withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {          sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                 // Push the Docker images
-                sh 'docker push ${FRONTEND_IMAGE}:latest'
+		{sh 'docker push ${FRONTEND_IMAGE}:latest'
                 sh 'docker push ${BACKEND_IMAGE}:latest'
                 sh 'docker push ${DATABASE_IMAGE}:latest'
             }
