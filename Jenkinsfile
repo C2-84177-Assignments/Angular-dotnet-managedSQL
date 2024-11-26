@@ -20,7 +20,7 @@ pipeline {
         stage('Build Frontend Docker Image') {
             steps {
                 script {
-                    // Replace 'frontend' with the path to the frontend Dockerfile
+                    //Replace 'frontend' with the path to the frontend Dockerfile
                     sh 'docker build -t ${FRONTEND_IMAGE}:latest ElectronicEquipmentAngular'
                 }
             }
