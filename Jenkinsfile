@@ -8,7 +8,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = credentials('docker')
         FRONTEND_IMAGE = 'vaibhavnitor/frontend-image'
         BACKEND_IMAGE = 'vaibhavnitor/backend-image'
-        DATABASE_IMAGE = 'vaibhavnitor/database-image'
+        //DATABASE_IMAGE = 'vaibhavnitor/database-image'
     }
 
     stages {
@@ -66,7 +66,7 @@ pipeline {
                 // Push the Docker images
                 sh 'docker push ${FRONTEND_IMAGE}:latest'
                 sh 'docker push ${BACKEND_IMAGE}:latest'
-                sh 'docker push ${DATABASE_IMAGE}:latest'
+                //sh 'docker push ${DATABASE_IMAGE}:latest'
             }
         }
     }
