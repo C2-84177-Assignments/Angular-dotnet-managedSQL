@@ -66,7 +66,7 @@ pipeline {
                 // Push the Docker images
                 sh 'docker push ${FRONTEND_IMAGE}:latest'
                 sh 'docker push ${BACKEND_IMAGE}:latest'
-                //sh 'docker push ${DATABASE_IMAGE}:latest'
+                
             }
         }
     }
