@@ -38,7 +38,7 @@ pipeline {
         stage('Build Backend Docker Image') {
             steps {
                 script {
-                    // Replace 'backend' with the path to the backend Dockerfile
+                    //Replace 'backend' with the path to the backend Dockerfile
                     sh 'docker build -t ${BACKEND_IMAGE}:latest ElectricEquipmentDotNetCoreAPI'
                 }
             }
